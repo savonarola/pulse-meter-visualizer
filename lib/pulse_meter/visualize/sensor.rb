@@ -41,13 +41,20 @@ module PulseMeter
       def interval
         real_sensor.interval
       end
-      
+
       def value
         real_sensor.value
       end
 
       def extractor
         PulseMeter::Visualize.extractor(self)
+      end
+
+      def valid?
+        real_sensor
+        true
+      rescue PulseMeter::RestoreError
+        false
       end
 
       protected
