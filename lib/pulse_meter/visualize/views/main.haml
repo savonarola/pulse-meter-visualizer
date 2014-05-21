@@ -8,6 +8,8 @@
     %script{type: 'text/javascript', src: url("/js/#{jsfile}")}
   - %w{bootstrap.min.css application.css jquery-ui-1.8.16.bootstrap.css}.each do |cssfile|
     %link{rel: 'stylesheet', href: url("/css/#{cssfile}"), type: 'text/css', media: 'screen'}
+  - if @embedded
+    %link{rel: 'stylesheet', href: url('/css/embedded.css'), type: 'text/css', media: 'screen'}
   %script{type: 'text/javascript', src: "https://www.google.com/jsapi"}
   :javascript
     google.load("visualization", "1", {packages:["corechart", "table", "gauge"]});
