@@ -14,6 +14,7 @@ module PulseMeter
 
       def initialize(layout)
         @layout = layout
+        self.class.set :protection, except: :frame_options if @layout.embedded
         super()
       end
 
@@ -23,6 +24,7 @@ module PulseMeter
 
       get '/' do
         @title = @layout.title
+        @embedded = @layout.embedded
         gon.pageInfos = camelize_keys(@layout.page_infos)
         gon.options = camelize_keys(@layout.options)
         haml :main
