@@ -46,11 +46,23 @@ shared_examples_for "widget" do
         w.to_data
       end
 
-      it "handles nonexistant widgets seamlessly" do
+      it "handles nonexistant sensors seamlessly" do
         expect{broken_widget.data}.not_to raise_exception
       end
     end
 
+    context "when all widget sensors are nonexistant" do
+      let(:broken_widget) do
+        w = dsl_class.new(widget_name)
+        w.sensor :c_sensor
+        w.to_data
+      end
+
+      describe "data[interval]" do
+        subject{ broken_widget.data[:interval] }
+        it{ should == 0 }
+      end
+    end
 
     it "should contains type, title, redraw_interval, width, gchart_options, timespan attriutes" do
       wdata = widget.data

@@ -90,7 +90,7 @@ module PulseMeter
 
         def interval
           if sensors.empty?
-            nil
+            0
           else
             sensors.first.interval
           end
