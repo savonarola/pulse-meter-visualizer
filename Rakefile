@@ -20,12 +20,15 @@ namespace :coffee do
   COFFEE_PATH = "#{ROOT}/lib/pulse_meter/visualize/coffee"
 
   def compile_js
+    puts "Compiling application.js..."
+
     Tilt::CoffeeScriptTemplate.default_bare = true
     env = Sprockets::Environment.new
     env.append_path COFFEE_PATH
     data = env['application.coffee']
     open("#{ROOT}/lib/pulse_meter/visualize/public/js/application.js", "w").write(data)
-    puts "application.js compiled"
+
+    puts "application.js compiled."
   end
 
   desc "Compile coffee to js"
@@ -35,13 +38,17 @@ namespace :coffee do
 
   desc "Watch coffee files and recomplile them immediately"
   task :watch do
-    Listen.to(COFFEE_PATH) do |modified, added, removed|
+    puts "Watching '#{COFFEE_PATH}'..."
+
+    listener = Listen.to(COFFEE_PATH) do |modified, added, removed|
       puts "Modified: #{modified}" unless modified.empty?
       puts "Added: #{added}" unless added.empty?
       puts "Removed: #{removed}" unless removed.empty?
-      puts "Recompiling..."
       compile_js
     end
+
+    listener.start
+    sleep
   end
 end
 
