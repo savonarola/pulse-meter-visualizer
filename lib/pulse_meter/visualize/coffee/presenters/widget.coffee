@@ -30,7 +30,7 @@ class WidgetPresenter
 
 		$.extend(true,
 			@options(),
-			@globalOptions.gchartOptions,
+			@globalOptions().gchartOptions,
 			pageOptions,
 			@get('gchartOptions')
 		)
