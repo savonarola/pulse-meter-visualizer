@@ -11,7 +11,7 @@ describe PulseMeter::Visualize::DSL::Layout do
       l = layout.to_data
       l.title.should == PulseMeter::Visualize::DSL::Layout::DEFAULT_TITLE
       l.pages.should == []
-      l.use_utc.should be_false
+      l.use_utc.should == false
       l.gchart_options.should == {}
     end
   end
@@ -44,7 +44,7 @@ describe PulseMeter::Visualize::DSL::Layout do
   describe "#use_utc" do
     it "should set use_utc" do
       layout.use_utc false
-      layout.to_data.use_utc.should be_false
+      layout.to_data.use_utc.should == false
     end
   end
 

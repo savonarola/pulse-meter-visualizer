@@ -26,7 +26,7 @@ describe PulseMeter::Visualize::DSL::Widgets::Area do
   describe "#show_last_point" do
     it "should set show_last_point" do
       w.show_last_point true
-      w.to_data.show_last_point.should be_true
+      w.to_data.show_last_point.should == true
     end
   end
 
