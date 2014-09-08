@@ -81,11 +81,11 @@ describe PulseMeter::Visualize::Sensor do
     subject{ checked_sensor.valid? }
     context "when sensor exists" do
       let(:checked_sensor){ sensor }
-      it{ should be_true }
+      it{ should == true }
     end
     context "when sensor does not exist" do
       let(:checked_sensor){ bad_sensor }
-      it{ should be_false }
+      it{ should == false }
     end
   end
 
