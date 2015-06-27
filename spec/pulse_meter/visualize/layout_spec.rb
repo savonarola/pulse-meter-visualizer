@@ -16,38 +16,38 @@ describe PulseMeter::Visualize::Layout do
   end
 
   describe "#page_infos" do
-    it "should return list of page infos with ids" do
-      layout.page_infos.should == [
+    it "returns list of page infos with ids" do
+      expect(layout.page_infos).to eq([
         {title: "page1", id: 1, gchart_options: {a: 1}},
         {title: "page2", id: 2, gchart_options: {}}
-      ]
+      ])
     end
   end
 
   describe "#options" do
-    it "should return layout options" do
+    it "returns layout options" do
       ldsl = PulseMeter::Visualize::DSL::Layout.new
       ldsl.use_utc true
       ldsl.gchart_options({a: 1})
       l = ldsl.to_data
-      l.options.should == {use_utc: true, gchart_options: {a: 1}}
+      expect(l.options).to eq({use_utc: true, gchart_options: {a: 1}})
     end
   end
 
   describe "#widget" do
-    it "should return data for correct widget" do
+    it "returns data for correct widget" do
       w = layout.widget(1, 0)
-      w.should include(id: 1, title: "w3")
+      expect(w).to include(id: 1, title: "w3")
       w = layout.widget(0, 1, timespan: 123)
-      w.should include(id: 2, title: "w2")
+      expect(w).to include(id: 2, title: "w2")
     end
   end
 
   describe "#widgets" do
-    it "should return data for correct widgets of a page" do
+    it "returns data for correct widgets of a page" do
       datas = layout.widgets(1)
-      datas[0].should include(id: 1, title: "w3")
-      datas[1].should include(id: 2, title: "w4")
+      expect(datas[0]).to include(id: 1, title: "w3")
+      expect(datas[1]).to include(id: 2, title: "w4")
     end
   end
 

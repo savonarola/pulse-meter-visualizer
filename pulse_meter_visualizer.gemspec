@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "pulse_meter_visualizer"
   gem.require_paths = ["lib"]
-  gem.version       = "0.4.20"
+  gem.version       = "0.4.21"
 
   gem.add_runtime_dependency('pulse_meter_core')
   gem.add_runtime_dependency('gon-sinatra')
@@ -32,7 +32,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('rake')
   gem.add_development_dependency('rb-fsevent')
   gem.add_development_dependency('redcarpet')
-  gem.add_development_dependency('rspec')
+  gem.add_development_dependency('rspec', '~> 3.0')
   gem.add_development_dependency('simplecov')
   gem.add_development_dependency('sprockets')
   gem.add_development_dependency('timecop')

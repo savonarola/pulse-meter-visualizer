@@ -26,13 +26,13 @@ describe PulseMeter::Visualize::Widgets::Pie do
   end
 
   describe "#data" do
-    it "should contain type, title, redraw_interval, width, gchart_options attriutes" do
+    it "contains type, title, redraw_interval, width, gchart_options attriutes" do
       wdata = widget.data
-      wdata[:type].should == 'pie'
-      wdata[:title].should == widget_name
-      wdata[:redraw_interval].should == redraw_interval
-      wdata[:width].should == width
-      wdata[:gchart_options].should == {a: 1}
+      expect(wdata[:type]).to eq('pie')
+      expect(wdata[:title]).to eq(widget_name)
+      expect(wdata[:redraw_interval]).to eq(redraw_interval)
+      expect(wdata[:width]).to eq(width)
+      expect(wdata[:gchart_options]).to eq({a: 1})
     end
 
     describe "series attribute" do
@@ -47,10 +47,10 @@ describe PulseMeter::Visualize::Widgets::Pie do
         @current_time = interval_start + 2 * interval - 1
       end
 
-      it "should contain valid pie slices" do
+      it "contains valid pie slices" do
 
         Timecop.freeze(@current_time) do
-          widget.data[:series].should ==
+          expect(widget.data[:series]).to eq(
             {
               data: [
                 [a_sensor.annotation, 12],
@@ -61,6 +61,7 @@ describe PulseMeter::Visualize::Widgets::Pie do
                 {color: b_color}
               ]
             }
+          )
         end
 
       end

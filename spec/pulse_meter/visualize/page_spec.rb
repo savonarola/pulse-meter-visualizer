@@ -57,16 +57,16 @@ describe PulseMeter::Visualize::Page do
 
   describe "#widget_data" do
 
-    it "should generate correct data of single widget" do
+    it "generates correct data of single widget" do
       Timecop.freeze(interval_start + 2 * interval - 1) do
-        page.widget_data(0)[:id].should == 1
-        page.widget_data(1)[:id].should == 2
+        expect(page.widget_data(0)[:id]).to eq(1)
+        expect(page.widget_data(1)[:id]).to eq(2)
       end
     end
 
-    it "should generate correct data of single widget" do
+    it "generates correct data of single widget" do
       Timecop.freeze(interval_start + 2 * interval - 1) do
-        page.widget_data(0)[:series].should ==
+        expect(page.widget_data(0)[:series]).to eq(
           {
             data: [
               [a_sensor.annotation, 12],
@@ -77,7 +77,8 @@ describe PulseMeter::Visualize::Page do
               {color: b_color}
             ]
           }
-        page.widget_data(1)[:series].should ==
+        )
+        expect(page.widget_data(1)[:series]).to eq(
           {
             titles: [a_sensor.annotation, b_sensor.annotation],
             rows: [[interval_start.to_i * 1000, 12, 33]],
@@ -86,10 +87,11 @@ describe PulseMeter::Visualize::Page do
               {color: b_color}
             ]
           }
+        )
       end
 
       Timecop.freeze(interval_start + 2 * interval - 1) do
-        page.widget_data(0, timespan: 0)[:series].should ==
+        expect(page.widget_data(0, timespan: 0)[:series]).to eq(
           {
             data: [
               [a_sensor.annotation, 12],
@@ -100,7 +102,8 @@ describe PulseMeter::Visualize::Page do
               {color: b_color}
             ]
           }
-        page.widget_data(1, timespan: 1)[:series].should ==
+        )
+        expect(page.widget_data(1, timespan: 1)[:series]).to eq(
           {
             titles: [a_sensor.annotation, b_sensor.annotation],
             rows: [],
@@ -109,6 +112,7 @@ describe PulseMeter::Visualize::Page do
               {color: b_color}
             ]
           }
+        )
 
       end
 
@@ -117,16 +121,16 @@ describe PulseMeter::Visualize::Page do
   end
 
   describe "#widget_datas" do
-    it "should generate correct ids for all widgets" do
+    it "generates correct ids for all widgets" do
       Timecop.freeze(interval_start + 2 * interval - 1) do
-        page.widget_datas.map{|h| h[:id]}.should == [1,2]
+        expect(page.widget_datas.map{|h| h[:id]}).to eq([1,2])
       end
     end
 
-    it "should generate correct series data of all widgets" do
+    it "generates correct series data of all widgets" do
       Timecop.freeze(interval_start + 2 * interval - 1) do
 
-        page.widget_datas.map{|h| h[:series]}.should == [
+        expect(page.widget_datas.map{|h| h[:series]}).to eq([
           {
             data: [
               [a_sensor.annotation, 12],
@@ -145,7 +149,7 @@ describe PulseMeter::Visualize::Page do
               {color: b_color}
             ]
           }
-        ]
+        ])
       end
 
     end

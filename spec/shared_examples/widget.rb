@@ -60,19 +60,19 @@ shared_examples_for "widget" do
 
       describe "data[interval]" do
         subject{ broken_widget.data[:interval] }
-        it{ should == 0 }
+        it{ is_expected.to eq(0) }
       end
     end
 
-    it "should contains type, title, redraw_interval, width, gchart_options, timespan attriutes" do
+    it "contains type, title, redraw_interval, width, gchart_options, timespan attriutes" do
       wdata = widget.data
-      wdata[:type].should == class_name.downcase
-      wdata[:title].should == widget_name
-      wdata[:redraw_interval].should == redraw_interval
-      wdata[:width].should == width
-      wdata[:gchart_options].should == {a: 1}
-      wdata[:timespan].should == timespan
-      wdata[:interval].should == interval
+      expect(wdata[:type]).to eq(class_name.downcase)
+      expect(wdata[:title]).to eq(widget_name)
+      expect(wdata[:redraw_interval]).to eq(redraw_interval)
+      expect(wdata[:width]).to eq(width)
+      expect(wdata[:gchart_options]).to eq({a: 1})
+      expect(wdata[:timespan]).to eq(timespan)
+      expect(wdata[:interval]).to eq(interval)
     end
 
     describe "series attribute" do
@@ -89,7 +89,7 @@ shared_examples_for "widget" do
 
       it "contains valid series" do
         Timecop.freeze(@current_time) do
-          widget.data[:series].should ==
+          expect(widget.data[:series]).to eq(
             {
               titles: [a_sensor.annotation, b_sensor.annotation],
               rows: [[interval_start.to_i * 1000, 12, 33]],
@@ -98,23 +98,24 @@ shared_examples_for "widget" do
                 {color: b_color}
               ]
             }
+          )
         end
       end
 
       it "accepts custom timespan" do
         Timecop.freeze(@current_time + interval) do
-          widget.data(timespan: timespan)[:series][:rows].size.should == 1
-          widget.data(timespan: timespan + interval)[:series][:rows].size.should == 2
+          expect(widget.data(timespan: timespan)[:series][:rows].size).to eq(1)
+          expect(widget.data(timespan: timespan + interval)[:series][:rows].size).to eq(2)
         end
       end
 
       it "accepts start_time and end_time" do
         Timecop.freeze(@current_time + interval) do
-          widget.data(start_time: (Time.now - timespan).to_i)[:series][:rows].size.should == 1
-          widget.data(
+          expect(widget.data(start_time: (Time.now - timespan).to_i)[:series][:rows].size).to eq(1)
+          expect(widget.data(
             start_time: (Time.now - interval - timespan).to_i,
             end_time: Time.now.to_i
-          )[:series][:rows].size.should == 2
+          )[:series][:rows].size).to eq(2)
         end
       end
 

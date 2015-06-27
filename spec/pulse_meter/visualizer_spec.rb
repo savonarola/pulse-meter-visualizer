@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe PulseMeter::Visualizer do
   describe "::draw" do
-    it "should generate correct layout with passed block" do
+    it "generates correct layout with passed block" do
       layout = described_class.draw do |l|
 
         l.title "My Gauges"
@@ -26,7 +26,7 @@ describe PulseMeter::Visualizer do
           p.line :rph_total, sensor: :rph_total
           p.line :rph_main_page, sensor: :rph_main_page
           p.line :request_time_p95_hour
-        
+
           p.pie :success_vs_fail_total_hourly do |w|
             w.sensor :success_total_hourly
             w.sensor :fail_total_hourly
@@ -35,7 +35,7 @@ describe PulseMeter::Visualizer do
         end
 
       end
-      layout.should be_kind_of(PulseMeter::Visualize::Layout)
+      expect(layout).to be_kind_of(PulseMeter::Visualize::Layout)
     end
   end
 end

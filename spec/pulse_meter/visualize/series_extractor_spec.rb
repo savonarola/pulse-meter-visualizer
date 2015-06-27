@@ -20,23 +20,23 @@ describe PulseMeter::Visualize::SeriesExtractor do
 
     let(:extractor) {PulseMeter::Visualize.extractor(simple_sensor)}
 
-    it "should be created for simple sensors" do
-      extractor.should be_kind_of(PulseMeter::Visualize::SeriesExtractor::Simple)
+    it "is created for simple sensors" do
+      expect(extractor).to be_kind_of(PulseMeter::Visualize::SeriesExtractor::Simple)
     end
 
-    it "should create point data correctly" do
-      extractor.point_data(123).should == [{y: 123, name: 'simple sensor'}]
+    it "creates point data correctly" do
+      expect(extractor.point_data(123)).to eq([{y: 123, name: 'simple sensor'}])
     end
 
-    it "should create timeline data correctly" do
+    it "creates timeline data correctly" do
       tl_data = [
         PulseMeter::SensorData.new(Time.at(1), 11),
         PulseMeter::SensorData.new(Time.at(2), "22")
       ]
-      extractor.series_data(tl_data).should == [{
+      expect(extractor.series_data(tl_data)).to eq([{
         name: 'simple sensor',
         data: [{x: 1000, y: 11}, {x: 2000, y: 22}]
-      }]
+      }])
     end
 
   end
@@ -44,23 +44,23 @@ describe PulseMeter::Visualize::SeriesExtractor do
   describe "hash extractor" do
     let(:extractor) {PulseMeter::Visualize.extractor(hashed_sensor)}
 
-    it "should be created for hash sensors" do
-      extractor.should be_kind_of(PulseMeter::Visualize::SeriesExtractor::Hashed)
+    it "is created for hash sensors" do
+      expect(extractor).to be_kind_of(PulseMeter::Visualize::SeriesExtractor::Hashed)
     end
 
-    it "should create point data correctly" do
-      extractor.point_data('{"x": 123, "y": 321}').should == [
+    it "creates point data correctly" do
+      expect(extractor.point_data('{"x": 123, "y": 321}')).to eq([
         {y: 123, name: 'hashed sensor: x'},
         {y: 321, name: 'hashed sensor: y'}
-      ]
+      ])
     end
 
-    it "should create timeline data correctly" do
+    it "creates timeline data correctly" do
       tl_data = [
         PulseMeter::SensorData.new(Time.at(1), {"a" => 5, "b" => 6}),
         PulseMeter::SensorData.new(Time.at(2), '{"c": 7, "b": 6}')
       ]
-      extractor.series_data(tl_data).should == [
+      expect(extractor.series_data(tl_data)).to eq([
         {
           name: 'hashed sensor: a',
           data: [{x: 1000, y: 5}, {x: 2000, y: nil}]
@@ -73,7 +73,7 @@ describe PulseMeter::Visualize::SeriesExtractor do
           name: 'hashed sensor: c',
           data: [{x: 1000, y: nil}, {x: 2000, y: 7}]
         }
-      ]
+      ])
     end
   end
 

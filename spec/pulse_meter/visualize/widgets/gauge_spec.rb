@@ -26,13 +26,13 @@ describe PulseMeter::Visualize::Widgets::Gauge do
   end
 
   describe "#data" do
-    it "should contain type, title, redraw_interval, width, gchart_options attriutes" do
+    it "contains type, title, redraw_interval, width, gchart_options attriutes" do
       wdata = widget.data
-      wdata[:type].should == 'gauge'
-      wdata[:title].should == widget_name
-      wdata[:redraw_interval].should == redraw_interval
-      wdata[:width].should == width
-      wdata[:gchart_options].should == {a: 1}
+      expect(wdata[:type]).to eq('gauge')
+      expect(wdata[:title]).to eq(widget_name)
+      expect(wdata[:redraw_interval]).to eq(redraw_interval)
+      expect(wdata[:width]).to eq(width)
+      expect(wdata[:gchart_options]).to eq({a: 1})
     end
 
     describe "series attribute" do
@@ -43,14 +43,14 @@ describe PulseMeter::Visualize::Widgets::Gauge do
         c_sensor.event(:b => 55)
       end
 
-      it "should contain valid gauge slices" do
+      it "contains valid gauge slices" do
 
-        widget.data[:series].sort.should == [
+        expect(widget.data[:series].sort).to eq([
           ['A', 12],
           ['B', 33],
           ["C: a", 44],
           ["C: b", 55]
-        ].sort
+        ].sort)
 
       end
 
